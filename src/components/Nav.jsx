@@ -1,5 +1,5 @@
 "use client";
-  import { useState, useEffect } from "react";
+  import { useState, useEffect, useRef, useMemo } from "react";
   import { Menu, X } from "lucide-react";
   import { GradientText } from "./GradientText";
 
@@ -14,12 +14,23 @@
   export function Nav() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const throttleRef = useRef(null);
 
     useEffect(() => {
-      const handleScroll = () => setIsScrolled(window.scrollY > 20);
-      window.addEventListener("scroll", handleScroll);
+      const handleScroll = () => {
+        if (!throttleRef.current) {
+          throttleRef.current = true;
+          setIsScrolled(window.scrollY > 20);
+          setTimeout(() => {
+            throttleRef.current = null;
+          }, 100);
+        }
+      };
+      window.addEventListener("scroll", handleScroll, { passive: true });
       return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const memoizedLinks = useMemo(() => NAV_LINKS, []);
 
     return (
       <header
@@ -34,7 +45,7 @@
             <GradientText>VS</GradientText>
           </a>
           <nav className="hidden md:flex gap-8 lg:gap-10">
-            {NAV_LINKS.map((link) => (
+            {memoizedLinks.map((link) => (
               <a key={link.name} href={link.href} className="text-base lg:text-lg font-medium text-muted-foreground hover:text-foreground transition-colors">
                 {link.name}
               </a>
@@ -46,7 +57,7 @@
         </div>
         {mobileOpen && (
           <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-lg border-b border-border/50 p-6 flex flex-col gap-4 md:hidden">
-            {NAV_LINKS.map((link) => (
+            {memoizedLinks.map((link) => (
               <a key={link.name} href={link.href} onClick={() => setMobileOpen(false)} className="text-lg font-medium text-foreground py-2 border-b border-border/20">
                 {link.name}
               </a>

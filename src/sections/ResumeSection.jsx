@@ -1,5 +1,5 @@
 "use client";
-  import { useState, useEffect } from "react";
+  import { useState, useEffect, useCallback } from "react";
   import { motion, AnimatePresence } from "framer-motion";
   import { SectionHeading } from "@/components/SectionHeading";
   import { CONSTANTS } from "@/data/constants";
@@ -11,16 +11,19 @@
   export function ResumeSection() {
     const [open, setOpen] = useState(false);
 
+    const handleClose = useCallback(() => setOpen(false), []);
+    const handleOpen = useCallback(() => setOpen(true), []);
+
     useEffect(() => {
       if (!open) return;
-      const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+      const onKey = (e) => { if (e.key === "Escape") handleClose(); };
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", onKey);
       return () => {
         document.body.style.overflow = "";
         window.removeEventListener("keydown", onKey);
       };
-    }, [open]);
+    }, [open, handleClose]);
 
     return (
       <section id="resume" className="py-14 lg:py-20">
@@ -34,7 +37,7 @@
                   Preview the document on the right, open it full-screen, or download the PDF.
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap gap-3 max-w-md">
-                  <Button onClick={() => setOpen(true)} className="bg-gradient-blue text-white hover:opacity-90">
+                  <Button onClick={handleOpen} className="bg-gradient-blue text-white hover:opacity-90">
                     <Maximize2 className="mr-2 h-4 w-4" /> Enlarge Preview
                   </Button>
                   <Button asChild variant="outline" className="border-sky-400/40 text-sky-300 hover:bg-sky-400/10">
@@ -53,7 +56,7 @@
                 </div>
               </div>
 
-              <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200, damping: 25 }} onClick={() => setOpen(true)} className="md:col-span-3 group relative cursor-zoom-in glass-card rounded-xl overflow-hidden w-full max-w-2xl mx-auto md:ml-auto md:mr-0 shadow-[0_0_50px_rgba(56,189,248,0.18)]">
+              <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 200, damping: 25 }} onClick={handleOpen} className="md:col-span-3 group relative cursor-zoom-in glass-card rounded-xl overflow-hidden w-full max-w-2xl mx-auto md:ml-auto md:mr-0 shadow-[0_0_50px_rgba(56,189,248,0.18)]">
                 <img src={RESUME_IMAGE} alt="Resume preview" className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-sky-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/70 backdrop-blur px-2.5 py-1 text-[11px] text-sky-200 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -66,8 +69,8 @@
 
         <AnimatePresence>
           {open && (
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8" onClick={() => setOpen(false)}>
-              <button onClick={() => setOpen(false)} className="absolute top-4 right-4 z-10 rounded-full bg-white/10 hover:bg-white/20 p-2 text-white transition" aria-label="Close">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-8" onClick={handleClose}>
+              <button onClick={handleClose} className="absolute top-4 right-4 z-10 rounded-full bg-white/10 hover:bg-white/20 p-2 text-white transition" aria-label="Close">
                 <X className="h-6 w-6" />
               </button>
               <motion.img initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} transition={{ duration: 0.25 }} src={RESUME_IMAGE} alt="Resume full view" onClick={(e) => e.stopPropagation()} className="max-h-full max-w-full md:max-w-3xl object-contain rounded-lg shadow-2xl" />

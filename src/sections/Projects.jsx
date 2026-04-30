@@ -1,5 +1,5 @@
 "use client";
-  import { useState } from "react";
+  import { useState, useMemo, useCallback } from "react";
   import { motion, AnimatePresence } from "framer-motion";
   import { SectionHeading } from "@/components/SectionHeading";
   import { GlassCard } from "@/components/GlassCard";
@@ -9,7 +9,14 @@
   export function Projects() {
     const [filter, setFilter] = useState("fullstack");
     const [selectedProject, setSelectedProject] = useState(null);
-    const filteredProjects = projects.filter((p) => p.category === filter);
+    
+    const filteredProjects = useMemo(() => {
+      return projects.filter((p) => p.category === filter);
+    }, [filter]);
+    
+    const handleFilterChange = useCallback((newFilter) => {
+      setFilter(newFilter);
+    }, []);
 
     return (
       <section id="projects" className="pt-6 pb-14 lg:pt-10 lg:pb-20">
@@ -17,8 +24,8 @@
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <SectionHeading title="Projects" />
             <div className="flex gap-4 mb-12">
-              <button onClick={() => setFilter("fullstack")} className={`px-6 py-2 rounded-full font-medium transition-all ${filter === "fullstack" ? "bg-gradient-blue text-white shadow-[0_0_15px_rgba(56,189,248,0.45)]" : "glass-card text-muted-foreground hover:text-foreground"}`}>Fullstack</button>
-              <button onClick={() => setFilter("integration")} className={`px-6 py-2 rounded-full font-medium transition-all ${filter === "integration" ? "bg-gradient-blue text-white shadow-[0_0_15px_rgba(56,189,248,0.45)]" : "glass-card text-muted-foreground hover:text-foreground"}`}>Mulesoft / Integration</button>
+              <button onClick={() => handleFilterChange("fullstack")} className={`px-6 py-2 rounded-full font-medium transition-all ${filter === "fullstack" ? "bg-gradient-blue text-white shadow-[0_0_15px_rgba(56,189,248,0.45)]" : "glass-card text-muted-foreground hover:text-foreground"}`}>Fullstack</button>
+              <button onClick={() => handleFilterChange("integration")} className={`px-6 py-2 rounded-full font-medium transition-all ${filter === "integration" ? "bg-gradient-blue text-white shadow-[0_0_15px_rgba(56,189,248,0.45)]" : "glass-card text-muted-foreground hover:text-foreground"}`}>Mulesoft / Integration</button>
             </div>
 
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
