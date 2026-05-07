@@ -1,5 +1,5 @@
 "use client";
-  import { useState, useEffect, useCallback, useMemo } from "react";
+  import { useState, useEffect } from "react";
   import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
   import { ExternalLink, Github, Lock, ChevronLeft, ChevronRight } from "lucide-react";
   import { Button } from "@/components/ui/button";
@@ -10,14 +10,12 @@
     useEffect(() => { setIndex(0); }, [project?.id]);
     if (!project) return null;
 
-    const gallery = useMemo(() => {
-      if (project.screenshots && project.screenshots.length > 0)
-        return project.screenshots;
-      return project.image ? [project.image] : [];
-    }, [project.screenshots, project.image]);
+    const gallery = (project.screenshots && project.screenshots.length > 0)
+      ? project.screenshots
+      : project.image ? [project.image] : [];
 
-    const next = useCallback(() => setIndex((i) => (i + 1) % gallery.length), [gallery.length]);
-    const prev = useCallback(() => setIndex((i) => (i - 1 + gallery.length) % gallery.length), [gallery.length]);
+    const next = () => setIndex((i) => (i + 1) % gallery.length);
+    const prev = () => setIndex((i) => (i - 1 + gallery.length) % gallery.length);
 
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>

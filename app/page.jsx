@@ -10,8 +10,6 @@ import { Nav } from "@/components/Nav";
   import { CoCurricular } from "@/sections/CoCurricular";
   import { Footer } from "@/sections/Footer";
 
-  export const revalidate = 3600; // Revalidate every hour
-
   export default function Page() {
     return (
       <div className="relative min-h-[100dvh] w-full text-foreground overflow-x-hidden">

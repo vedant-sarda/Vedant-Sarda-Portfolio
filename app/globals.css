@@ -197,8 +197,6 @@
   opacity: 0.55;
   mix-blend-mode: screen;
   will-change: transform;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
 }
 .orb-1 {
   width: 520px; height: 520px;
@@ -248,8 +246,6 @@
   filter: blur(60px);
   opacity: 0.7;
   animation: aurora-spin 40s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
 }
 @keyframes aurora-spin {
   from { transform: rotate(0deg); }
@@ -257,13 +253,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orb, .aurora, .bg-grid { 
-    animation: none !important; 
-    will-change: auto;
-  }
-  html {
-    scroll-behavior: auto;
-  }
+  .orb, .aurora, .bg-grid { animation: none !important; }
 }
 
 @layer utilities {

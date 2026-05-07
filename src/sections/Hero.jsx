@@ -1,17 +1,8 @@
 "use client";
   import { motion } from "framer-motion";
-  import { memo } from "react";
   import { CONSTANTS } from "@/data/constants";
   import { ScrambleText } from "@/components/ScrambleText";
   import { Github, Linkedin, FileText, Code2 } from "lucide-react";
-
-  const SocialLink = memo(function SocialLink({ href, icon, label }) {
-    return (
-      <a href={href} target="_blank" rel="noreferrer" aria-label={label} title={label} className="w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full glass-card text-foreground hover:text-sky-300 transition-colors">
-        {icon}
-      </a>
-    );
-  });
 
   export function Hero() {
     return (
@@ -43,5 +34,11 @@
     );
   }
 
-  Hero.displayName = "Hero";
+  function SocialLink({ href, icon, label }) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" aria-label={label} title={label} className="w-12 h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full glass-card text-foreground hover:text-sky-300 transition-colors">
+        {icon}
+      </a>
+    );
+  }
   

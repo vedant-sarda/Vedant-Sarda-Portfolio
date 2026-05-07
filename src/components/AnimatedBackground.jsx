@@ -3,31 +3,18 @@
 
   export function AnimatedBackground() {
     const ref = useRef(null);
-    const throttleRef = useRef(null);
 
     useEffect(() => {
       const el = ref.current;
       if (!el) return;
-      
       const onMove = (e) => {
         const x = (e.clientX / window.innerWidth) * 100;
         const y = (e.clientY / window.innerHeight) * 100;
         el.style.setProperty("--mx", `${x}%`);
         el.style.setProperty("--my", `${y}%`);
       };
-      
-      const throttledMove = (e) => {
-        if (!throttleRef.current) {
-          throttleRef.current = true;
-          onMove(e);
-          requestAnimationFrame(() => {
-            throttleRef.current = null;
-          });
-        }
-      };
-      
-      window.addEventListener("pointermove", throttledMove, { passive: true });
-      return () => window.removeEventListener("pointermove", throttledMove);
+      window.addEventListener("pointermove", onMove);
+      return () => window.removeEventListener("pointermove", onMove);
     }, []);
 
     return (
@@ -35,7 +22,7 @@
         ref={ref}
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-        style={{ "--mx": "50%", "--my": "50%", willChange: "--mx, --my" }}
+        style={{ "--mx": "50%", "--my": "50%" }}
       >
         <div
           className="absolute inset-0 transition-[background] duration-300"

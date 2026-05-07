@@ -1,15 +1,6 @@
 import { CONSTANTS } from "@/data/constants";
   import { ScrambleText } from "@/components/ScrambleText";
   import { Github, Linkedin, Instagram, Mail, Phone } from "lucide-react";
-  import { memo } from "react";
-
-  const SocialLink = memo(function SocialLink({ href, icon }) {
-    return (
-      <a href={href} target="_blank" rel="noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full glass-card text-foreground hover:text-primary transition-colors">
-        {icon}
-      </a>
-    );
-  });
 
   export function Footer() {
     return (
@@ -42,6 +33,14 @@ import { CONSTANTS } from "@/data/constants";
           </div>
         </div>
       </footer>
+    );
+  }
+
+  function SocialLink({ href, icon }) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full glass-card text-foreground hover:text-primary transition-colors">
+        {icon}
+      </a>
     );
   }
   

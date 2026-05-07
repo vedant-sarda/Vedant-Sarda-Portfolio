@@ -1,8 +1,6 @@
 export default {
-  plugins: {
-    '@tailwindcss/postcss': {
-      optimize: true,
+    plugins: {
+      "@tailwindcss/postcss": {},
     },
-  },
-};
+  };
   

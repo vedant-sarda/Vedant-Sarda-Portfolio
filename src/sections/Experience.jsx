@@ -1,29 +1,29 @@
 "use client";
   import { motion } from "framer-motion";
-  import { useMemo } from "react";
   import { SectionHeading } from "@/components/SectionHeading";
   import { GlassCard } from "@/components/GlassCard";
   import { Briefcase, MapPin, Calendar } from "lucide-react";
 
+  const roles = [
+    {
+      title: "Full Stack Developer Intern",
+      company: "Connecting Dots ERP",
+      location: "Pune, India",
+      period: "Dec 2025 – Present",
+      current: true,
+      bullets: [
+        "Architected and shipped production-grade modules of a high-traffic ed-tech platform using Next.js 14 (App Router), Express.js, and MongoDB, serving 10K+ monthly users.",
+        "Designed and consumed RESTful APIs with structured request validation, JWT-based auth, role-based access control, and centralised error handling.",
+        "Optimised backend logic and database queries (indexing, aggregation pipelines, pagination), cutting average API response time by ~40%.",
+        "Implemented SEO best practices — semantic markup, server-side rendering, dynamic Open Graph, sitemap & robots — driving organic traffic growth.",
+        "Owned end-to-end CI/CD on Vercel (frontend) and Render (backend) with environment-based configs, preview deployments, and zero-downtime releases.",
+        "Collaborated with designers and product on Agile sprints, conducted code reviews, and mentored junior interns on Git workflows and clean-code patterns.",
+      ],
+      tags: ["Next.js","React","TypeScript","Node.js","Express","MongoDB","REST APIs","JWT Auth","TailwindCSS","SEO","Vercel","Render","CI/CD","Agile","Git"],
+    },
+  ];
+
   export function Experience() {
-    const roles = useMemo(() => [
-      {
-        title: "Full Stack Developer Intern",
-        company: "Connecting Dots ERP",
-        location: "Pune, India",
-        period: "Dec 2025 – Present",
-        current: true,
-        bullets: [
-          "Architected and shipped production-grade modules of a high-traffic ed-tech platform using Next.js 14 (App Router), Express.js, and MongoDB, serving 10K+ monthly users.",
-          "Designed and consumed RESTful APIs with structured request validation, JWT-based auth, role-based access control, and centralised error handling.",
-          "Optimised backend logic and database queries (indexing, aggregation pipelines, pagination), cutting average API response time by ~40%.",
-          "Implemented SEO best practices — semantic markup, server-side rendering, dynamic Open Graph, sitemap & robots — driving organic traffic growth.",
-          "Owned end-to-end CI/CD on Vercel (frontend) and Render (backend) with environment-based configs, preview deployments, and zero-downtime releases.",
-          "Collaborated with designers and product on Agile sprints, conducted code reviews, and mentored junior interns on Git workflows and clean-code patterns.",
-        ],
-        tags: ["Next.js","React","TypeScript","Node.js","Express","MongoDB","REST APIs","JWT Auth","TailwindCSS","SEO","Vercel","Render","CI/CD","Agile","Git"],
-      },
-    ], []);
     return (
       <section id="experience" className="py-14 lg:py-20">
         <div className="container mx-auto px-6 max-w-7xl">
