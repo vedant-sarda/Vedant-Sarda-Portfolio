@@ -9,7 +9,7 @@
       title: "Full Stack Developer",
       company: "Connecting Dots ERP",
       location: "Pune, India",
-      period: "Dec 2025 – Present",
+      period: "July 2024 – Present",
       current: true,
       bullets: [
         "Architected and shipped production-grade modules of a high-traffic ed-tech platform using Next.js 14 (App Router), Express.js, and MongoDB, serving 10K+ monthly users.",
