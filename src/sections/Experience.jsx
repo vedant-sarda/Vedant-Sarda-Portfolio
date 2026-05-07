@@ -6,7 +6,7 @@
 
   const roles = [
     {
-      title: "Full Stack Developer Intern",
+      title: "Full Stack Developer",
       company: "Connecting Dots ERP",
       location: "Pune, India",
       period: "Dec 2025 – Present",
